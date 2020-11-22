@@ -10,9 +10,10 @@ def main(argv):
     groups = {}
     budgets = {}
     s = np.random.random() * 100
+    debug = False
 
     try:
-        opts, args = getopt.getopt(argv,"n:g:s:",)
+        opts, args = getopt.getopt(argv,"n:g:s:d")
     except getopt.GetoptError:
         print('invalid arguments')
         sys.exit(2)
@@ -28,18 +29,22 @@ def main(argv):
                     groups[i] = g;
         if opt == "-s":
             s = float(arg)
+        if opt == "-d":
+            debug = True
+
 
     strag = n - len(groups)
-    s_max = (s / (len(budgets) + strag)) - .015
+    s_max = (s / (len(budgets) + strag)) - .015 # compensate for rounding error
 
     for g in budgets:
         budgets[g] = [s_max, len(list(combinations(g, 2))), 0]
 
-    print(s)
-    print(s_max)
-    print(strag)
-    print(groups)
-    print(budgets)
+    if debug:
+        print(s)
+        print(s_max)
+        print(strag)
+        print(groups)
+        print(budgets)
 
     out = "{:d} \n".format(n)
     out += "{:.3f} \n".format(s)
@@ -49,7 +54,7 @@ def main(argv):
             s_ij = 0
 
             if str(i) in groups and str(j) in groups[str(i)]:
-                # out += " * "
+                if debug: out += " * " # uncomment to visualize the matched pairs
                 curr, num, _ = budgets[groups[str(i)]]
                 curr = float(curr)
                 if num == 1:
