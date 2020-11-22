@@ -1,30 +1,33 @@
 
 NUMBER OF STUDENTS: 50
-MAX STRESS: 56.154
+MAX STRESS: 81.401
 NUMBER OF GROUPS (INCLUDING STRAGGLERS): 17
 NUMBER OF STRAGGLERS: 3
 
-straggler: 14
 straggler: 45
-straggler: 33
+straggler: 46
+straggler: 41
 
-group: (44, 5, 34, 38, 1, 31, 0, 39, 3, 21, 12, 42, 29, 15, 10, 23, 43, 28, 17)
-group: (46, 19, 7)
-group: (47, 11)
-group: (4, 6)
-group: (9, 2)
-group: (40, 20)
-group: (48, 18)
-group: (41, 8)
-group: (16, 13)
-group: (35, 37)
-group: (22, 26)
-group: (25, 24)
-group: (49, 30)
-group: (27, 36, 32)
+group: (21, 17, 37, 7)
+group: (32, 27)
+group: (12, 43, 26, 31, 3, 18, 25, 49, 48)
+group: (16, 8, 33, 30, 35, 15, 6, 20)
+group: (24, 9, 47, 11)
+group: (23, 1)
+group: (10, 39)
+group: (0, 14, 13)
+group: (28, 2)
+group: (42, 44)
+group: (29, 5)
+group: (40, 34)
+group: (36, 4)
+group: (19, 22, 38)
 
 students remaining: []
 
-saving
+saving...
 success! output located at: ./inputs/50.in
+
+testing for well formed input...
+input malformed. aborting.
 

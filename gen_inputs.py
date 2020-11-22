@@ -6,6 +6,8 @@ import getopt
 from itertools import combinations
 import random
 
+import parse
+
 help = "    HELP: \n\
         n: number of students \n\
         g: number of groups (including stragglers) \n\
@@ -124,14 +126,14 @@ def main(argv):
                 s_ij = np.random.random() * 100
 
             h_ij = np.random.random() * 100
-            out += "{:d} {:d} {:.3f} {:.3f} \n".format(i, j, h_ij, s_ij)
+            out += "{:d} {:d} {:.3f} {:.3f}\n".format(i, j, h_ij, s_ij)
 
     # if debug:
     #     print(groups)
     #     print(budgets)
 
     print()
-    print("saving")
+    print("saving...")
     if not os.path.exists(FP):
         try:
             os.mkdir(FP)
@@ -147,5 +149,17 @@ def main(argv):
     print("success! output located at: " + FP)
     print()
 
+    print("testing for well formed input...")
+
+    parse.validate_file(FP)
+    try:
+        parse.read_input_file(FP)
+    except:
+        print("input malformed. aborting.")
+        print()
+        return
+
+    print("success!")
+    print()
 if __name__ == "__main__":
     main(sys.argv[1:])
