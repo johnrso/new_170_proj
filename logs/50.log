@@ -1,0 +1,30 @@
+
+NUMBER OF STUDENTS: 50
+MAX STRESS: 56.154
+NUMBER OF GROUPS (INCLUDING STRAGGLERS): 17
+NUMBER OF STRAGGLERS: 3
+
+straggler: 14
+straggler: 45
+straggler: 33
+
+group: (44, 5, 34, 38, 1, 31, 0, 39, 3, 21, 12, 42, 29, 15, 10, 23, 43, 28, 17)
+group: (46, 19, 7)
+group: (47, 11)
+group: (4, 6)
+group: (9, 2)
+group: (40, 20)
+group: (48, 18)
+group: (41, 8)
+group: (16, 13)
+group: (35, 37)
+group: (22, 26)
+group: (25, 24)
+group: (49, 30)
+group: (27, 36, 32)
+
+students remaining: []
+
+saving
+success! output located at: ./inputs/50.in
+

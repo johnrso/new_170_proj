@@ -1,0 +1,22 @@
+
+NUMBER OF STUDENTS: 20
+MAX STRESS: 40.174
+NUMBER OF GROUPS (INCLUDING STRAGGLERS): 9
+NUMBER OF STRAGGLERS: 3
+
+straggler: 1
+straggler: 12
+straggler: 5
+
+group: (15, 10, 2, 14, 13)
+group: (19, 9, 3)
+group: (8, 7)
+group: (18, 17)
+group: (4, 0)
+group: (16, 6, 11)
+
+students remaining: []
+
+saving
+success! output located at: ./inputs/20.in
+
