@@ -18,9 +18,13 @@ help = "    HELP: \n\
        "
 
 def main(argv):
-    FP = "./inputs/"
+    FP_in = "./inputs/"
+    FP_out = "./outputs/"
+
     groups = {}
     budgets = {}
+    rooms = {}
+
     s = np.random.random() * 100
     n = 0
     debug = False
@@ -56,6 +60,7 @@ def main(argv):
     print()
 
     total_groups = num_group
+    curr_room = 0
 
     students = list(range(n))
     random.shuffle(students)
@@ -63,7 +68,9 @@ def main(argv):
     for _ in range(num_strag):
         num_group -= 1
         curr = students.pop()
+        rooms[curr] = curr_room
         print("straggler: {:d}".format(curr))
+        curr_room += 1
 
     print()
 
@@ -77,7 +84,9 @@ def main(argv):
             if debug: print("cap: {:.2f}".format(cap))
             size = 2 + int(np.random.random() * cap)
         for _ in range(size):
-            g += [students.pop()]
+            curr = students.pop()
+            g += [curr]
+            rooms[curr] = curr_room
         g = tuple(g)
 
         print("group: " + str(g))
@@ -87,6 +96,7 @@ def main(argv):
         budgets[g] = 0
 
         num_group -= 1
+        curr_room += 1
 
     print()
     print("students remaining: " + str(students))
@@ -128,38 +138,67 @@ def main(argv):
             h_ij = np.random.random() * 100
             out += "{:d} {:d} {:.3f} {:.3f}\n".format(i, j, h_ij, s_ij)
 
-    # if debug:
-    #     print(groups)
-    #     print(budgets)
-
     print()
-    print("saving...")
-    if not os.path.exists(FP):
+    print("saving input...")
+    if not os.path.exists(FP_in):
         try:
-            os.mkdir(FP)
+            os.mkdir(FP_in)
         except OSError:
-            print("error encountered while creating " + FP)
+            print("error encountered while creating " + FP_in)
 
-    FP += "{:d}.in".format(n)
-    file = open(FP, 'w+')
+    FP_in += "{:d}.in".format(n)
+    file = open(FP_in, 'w+')
 
     file.write(out)
     file.close()
 
-    print("success! output located at: " + FP)
+    print("success! input located at: " + FP_in)
     print()
 
-    print("testing for well formed input...")
+    print("saving output...")
 
-    parse.validate_file(FP)
+    if not os.path.exists(FP_out):
+        try:
+            os.mkdir(FP_out)
+        except OSError:
+            print("error encountered while creating " + FP_out)
+
+    rooms = list(rooms.items())
+    rooms.sort(key = lambda n: n[0])
+
+    out = ""
+    for i in rooms:
+        out += "{:d} {:d}\n".format(i[0], i[1])
+
+    FP_out += "{:d}.out".format(n)
+    file = open(FP_out, 'w+')
+
+    file.write(out)
+    file.close()
+
+    print("success! output located at: " + FP_out)
+    print()
+
+    print("testing for well formed input/output...")
+
+    parse.validate_file(FP_in)
+    parse.validate_file(FP_out)
+
+    print("success!")
+    print()
+
+    print("testing for valid solution...")
+
     try:
-        parse.read_input_file(FP)
+        G, S = parse.read_input_file(FP_in)
+        parse.read_output_file(FP_out, G, S)
     except:
-        print("input malformed. aborting.")
+        print("input/output malformed. please rerun.")
         print()
         return
 
     print("success!")
     print()
+
 if __name__ == "__main__":
     main(sys.argv[1:])
