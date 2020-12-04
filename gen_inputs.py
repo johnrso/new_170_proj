@@ -25,7 +25,7 @@ def main(argv):
     budgets = {}
     rooms = {}
 
-    s = np.random.random() * 100
+    s = 99.999
     n = 0
     debug = False
     num_group = 0
@@ -118,6 +118,7 @@ def main(argv):
     for i in range(n):
         for j in range(i + 1, n):
             s_ij = 0
+            h_ij = 0
 
             if i in groups and j in groups[i]:
                 if debug: out += " * " # uncomment to visualize the matched pairs
@@ -126,18 +127,19 @@ def main(argv):
                 if num == 1:
                     s_ij = curr
                 else:
-                    s_ij = np.random.random() * curr
+                    s_ij = (.25 + .5 * np.random.random()) * curr
 
                 budgets[groups[i]][0] -= s_ij
                 budgets[groups[i]][1] -= 1
                 budgets[groups[i]][2] += s_ij
 
+                h_ij = np.random.random() * 75 + 25
             else:
-                s_ij = np.random.random() * 100
-
-            h_ij = np.random.random() * 100
+                s_ij = s_max * (.75 + .4 * np.random.random())
+                h_ij = np.random.random() * 75
             out += "{:d} {:d} {:.3f} {:.3f}\n".format(i, j, h_ij, s_ij)
 
+    print(budgets)
     print()
     print("saving input...")
     if not os.path.exists(FP_in):
@@ -189,13 +191,13 @@ def main(argv):
 
     print("testing for valid solution...")
 
-    try:
-        G, S = parse.read_input_file(FP_in)
-        parse.read_output_file(FP_out, G, S)
-    except:
-        print("input/output malformed. please rerun.")
-        print()
-        return
+    # try:
+    G, S = parse.read_input_file(FP_in)
+    parse.read_output_file(FP_out, G, S)
+    # except:
+    #     print("input/output malformed. please rerun.")
+    #     print()
+    #     return
 
     print("success!")
     print()
