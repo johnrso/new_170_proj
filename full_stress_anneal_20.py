@@ -65,7 +65,7 @@ def anneal_solve_20(G, s):
         swap_happ = calculate_happiness_for_room(swap_1, G) + calculate_happiness_for_room(swap_2, G)
 
         curr_stress = calculate_stress_for_room(st1_room, G) + calculate_stress_for_room(st2_room, G)
-        swap_stress = calculate_stress_for_room(swap_1, G) + calculate_stress_for_room(swap2, G)
+        swap_stress = calculate_stress_for_room(swap_1, G) + calculate_stress_for_room(swap_2, G)
 
         delta_h = swap_happ - curr_happ
         delta_s = swap_stress - curr_stress
