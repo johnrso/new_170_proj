@@ -64,14 +64,18 @@ def anneal_solve_20(G, s):
         curr_happ = calculate_happiness_for_room(st1_room, G) + calculate_happiness_for_room(st2_room, G)
         swap_happ = calculate_happiness_for_room(swap_1, G) + calculate_happiness_for_room(swap_2, G)
 
-        delta = swap_happ - curr_happ
+        curr_stress = calculate_stress_for_room(st1_room, G) + calculate_stress_for_room(st2_room, G)
+        swap_stress = calculate_stress_for_room(swap_1, G) + calculate_stress_for_room(swap2, G)
+
+        delta_h = swap_happ - curr_happ
+        delta_s = swap_stress - curr_stress
         # print(delta, st1, st2)
-        if delta > 0 and is_valid_solution(curr, G, s, num_rooms):
+        if delta_h > 0 and delta_s < 0 and is_valid_solution(curr, G, s, num_rooms):
             # print("in here")
             rooms[st2_num] += [st1]
             st1_room.remove(st1)
 
-        elif random.random() < math.exp(delta / T):
+        elif random.random() < math.exp(delta_h / T):
             # print("anneal :0")
             rooms[st2_num] += [st1]
             st1_room.remove(st1)
