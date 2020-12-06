@@ -12,7 +12,7 @@ from utils import *
 from parse import *
 from os.path import *
 
-ITERATIONS = 10 ** 6
+ITERATIONS = 10 ** 5
 
 def anneal_solve_20(G, s):
     curr = {}
@@ -32,18 +32,18 @@ def anneal_solve_20(G, s):
 
     best = (dict(curr), 20)
 
-    T = 100
     G_copy = G.copy()
     for e in list(G_copy.edges.data()):
         if e[2]['stress'] > s / 2:
             G_copy.remove_edge(*e[:2])
 
+    T = 100000
+
     for i in range(ITERATIONS):
-        # print(T)
-        # if i % 100 == 0:
-        #     end = timeit.default_timer()
-        #     print("{} out of {}, elapsed time: {}".format(i, ITERATIONS, end - start))
-        #     start = timeit.default_timer()
+        if i % 100 == 0:
+            end = timeit.default_timer()
+            print("{} out of {}, elapsed time: {}".format(i, ITERATIONS, end - start))
+            start = timeit.default_timer()
 
         st1 = random.choice(range(20))
         poss_swaps = G_copy.edges(st1)
@@ -63,7 +63,6 @@ def anneal_solve_20(G, s):
         swap_happ = calculate_happiness_for_room(swap_1, G) + calculate_happiness_for_room(swap_2, G)
 
         delta = swap_happ - curr_happ
-        print(delta)
         # print(delta, st1, st2)
         if delta > 0 and is_valid_solution(curr, G, s, num_rooms):
             # print("in here")
@@ -78,7 +77,8 @@ def anneal_solve_20(G, s):
         else:
             curr[st1] = st1_num
 
-        T *= .99
+        if i % 100 == 0:
+            T *= .99
 
         rooms = reorder_rooms(rooms)
         curr = convert_dictionary(rooms)
@@ -130,8 +130,7 @@ if __name__ == '__main__':
         assert is_valid_solution(D, G, s, k)
 
         h = calculate_happiness(D, G)
-
         if h > h_o:
             print("improvement on {} ({} vs {}), overwriting...".format(input_path, D_o, D))
-            write_output_file(D, output_path)
+        write_output_file(D, output_path)
         ct += 1

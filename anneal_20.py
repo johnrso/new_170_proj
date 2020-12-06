@@ -97,7 +97,7 @@ def anneal_solve_20(G, s):
                 best_happiness = happ
                 best = (dict(curr), num_rooms)
 
-    print(best)
+    # print(best)
 
     T = 100
     G_copy = G.copy()
@@ -127,7 +127,7 @@ def anneal_solve_20(G, s):
         swap_1.remove(st1)
 
         curr[st1] = st2_num
-        num_rooms = max(curr.values())
+        num_rooms = max(curr.values()) + 1
 
         curr_happ = calculate_happiness_for_room(st1_room, G) + calculate_happiness_for_room(st2_room, G)
         swap_happ = calculate_happiness_for_room(swap_1, G) + calculate_happiness_for_room(swap_2, G)
@@ -157,7 +157,7 @@ def anneal_solve_20(G, s):
             if happ > best_happiness:
                 best_happiness = happ
                 best = (dict(curr), num_rooms)
-    print(best)
+    # print(best)
     return best
 
 def reorder_rooms(rooms):
@@ -186,7 +186,7 @@ if __name__ == '__main__':
     for input_path in inputs:
         if ct % 50 == 0:
             print("{} out of {}".format(ct, ttl))
-
+        print(input_path)
         output_path = './all_outputs/' + basename(normpath(input_path))[:-3] + '.out'
 
         G, s = read_input_file(input_path, 20)

@@ -23,22 +23,31 @@ def brute_solve_10(G, s):
     val = -math.inf
 
     for st1 in range(2):
+        lst = [0, 0, 0, 0, 0, 0, 0, 0, 0, 0]
         curr[1] = st1
-        for st2 in range(st1 + 2):
+        lst[1] = st1
+        for st2 in range(max(lst[:2]) + 2):
             curr[2] = st2
-            for st3 in range(st2 + 2):
+            lst[2] = st2
+            for st3 in range(max(lst[:3]) + 2):
                 curr[3] = st3
-                for st4 in range(st3 + 2):
+                lst[3] = st3
+                for st4 in range(max(lst[:4]) + 2):
                     curr[4] = st4
-                    for st5 in range(st4 + 2):
+                    lst[4] = st4
+                    for st5 in range(max(lst[:5]) + 2):
                         curr[5] = st5
-                        for st6 in range(st5 + 2):
+                        lst[5] = st5
+                        for st6 in range(max(lst[:6]) + 2):
                             curr[6] = st6
-                            for st7 in range(st6 + 2):
+                            lst[6] = st6
+                            for st7 in range(max(lst[:7]) + 2):
                                 curr[7] = st7
-                                for st8 in range(st7 + 2):
+                                lst[7] = st7
+                                for st8 in range(max(lst[:8]) + 2):
                                     curr[8] = st8
-                                    for st9 in range(st8 + 2):
+                                    lst[8] = st8
+                                    for st9 in range(max(lst[:9]) + 2):
                                         curr[9] = st9
                                         rooms = max(curr.values()) + 1
                                         if is_valid_solution(curr, G, s, rooms):
@@ -55,7 +64,7 @@ if __name__ == '__main__':
     print(ttl)
     ct = 0
     for input_path in inputs:
-        if ct % 50 == 0:
+        if ct % 25 == 0:
             print("{} out of {}".format(ct, ttl))
         output_path = './all_outputs/' + basename(normpath(input_path))[:-3] + '.out'
         G, s = read_input_file(input_path, 10)
@@ -63,3 +72,12 @@ if __name__ == '__main__':
         assert is_valid_solution(D, G, s, k)
         write_output_file(D, output_path)
         ct += 1
+
+# if __name__ == '__main__':
+#     assert len(sys.argv) == 2
+#     path = sys.argv[1]
+#     G, s = read_input_file(path)
+#     D, k = brute_solve_10(G, s)
+#     assert is_valid_solution(D, G, s, k)
+#     print("Total Happiness: {}".format(calculate_happiness(D, G)))
+#     write_output_file(D, 'out/test.out')

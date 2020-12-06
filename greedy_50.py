@@ -101,7 +101,7 @@ def greedy_solve_50(G, s):
             if happ > best_happiness:
                 best_happiness = happ
                 best = (dict(curr), num_rooms)
-                
+
     print(best)
     return best
 
