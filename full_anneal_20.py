@@ -57,7 +57,7 @@ def anneal_solve_20(G, s):
         swap_1.remove(st1)
 
         curr[st1] = st2_num
-        num_rooms = max(curr.values())
+        num_rooms = max(curr.values()) + 1
 
         curr_happ = calculate_happiness_for_room(st1_room, G) + calculate_happiness_for_room(st2_room, G)
         swap_happ = calculate_happiness_for_room(swap_1, G) + calculate_happiness_for_room(swap_2, G)
