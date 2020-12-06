@@ -39,6 +39,8 @@ def anneal_solve_20(G, s):
 
     T = 100000
 
+    start = timeit.default_timer()
+    
     for i in range(ITERATIONS):
         if i % 100 == 0:
             end = timeit.default_timer()
