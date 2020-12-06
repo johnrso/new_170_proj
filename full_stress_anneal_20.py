@@ -12,7 +12,7 @@ from utils import *
 from parse import *
 from os.path import *
 
-ITERATIONS = 10 ** 5
+ITERATIONS = 10 ** 4
 
 def anneal_solve_20(G, s):
     curr = {}
@@ -37,15 +37,15 @@ def anneal_solve_20(G, s):
         if e[2]['stress'] > s / 2:
             G_copy.remove_edge(*e[:2])
 
-    T = 100000
+    T = 10000
 
-    # start = timeit.default_timer()
+    start = timeit.default_timer()
 
     for i in range(ITERATIONS):
-        # if i % 100 == 0:
-        #     end = timeit.default_timer()
-        #     print("{} out of {}, elapsed time: {}".format(i, ITERATIONS, end - start))
-        #     start = timeit.default_timer()
+        if i % 100 == 0:
+            end = timeit.default_timer()
+            print("{} out of {}, elapsed time: {}".format(i, ITERATIONS, end - start))
+            start = timeit.default_timer()
 
         st1 = random.choice(range(20))
         poss_swaps = G_copy.edges(st1)
@@ -69,6 +69,8 @@ def anneal_solve_20(G, s):
 
         delta_h = swap_happ - curr_happ
         delta_s = swap_stress - curr_stress
+
+        # print(curr)
         # print(delta, st1, st2)
         if delta_h > 0 and delta_s < 0 and is_valid_solution(curr, G, s, num_rooms):
             # print("in here")
@@ -83,7 +85,7 @@ def anneal_solve_20(G, s):
         else:
             curr[st1] = st1_num
 
-        if i % 100 == 0:
+        if i % 10 == 0:
             T *= .99
 
         rooms = reorder_rooms(rooms)
@@ -141,5 +143,5 @@ if __name__ == '__main__':
 
         if h > h_o:
             print("improvement on {} ({} vs {}), overwriting...".format(input_path, D_o, D))
-        write_output_file(D, output_path)
+            write_output_file(D, output_path)
         ct += 1
