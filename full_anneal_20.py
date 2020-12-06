@@ -39,13 +39,13 @@ def anneal_solve_20(G, s):
 
     T = 100000
 
-    start = timeit.default_timer()
-    
+    # start = timeit.default_timer()
+
     for i in range(ITERATIONS):
-        if i % 100 == 0:
-            end = timeit.default_timer()
-            print("{} out of {}, elapsed time: {}".format(i, ITERATIONS, end - start))
-            start = timeit.default_timer()
+        # if i % 100 == 0:
+        #     end = timeit.default_timer()
+        #     print("{} out of {}, elapsed time: {}".format(i, ITERATIONS, end - start))
+        #     start = timeit.default_timer()
 
         st1 = random.choice(range(20))
         poss_swaps = G_copy.edges(st1)
@@ -86,11 +86,12 @@ def anneal_solve_20(G, s):
         curr = convert_dictionary(rooms)
         num_rooms = max(curr.values()) + 1
         if is_valid_solution(curr, G, s, num_rooms):
+            print("valid solution")
             happ = calculate_happiness(curr, G)
             if happ > best_happiness:
                 best_happiness = happ
                 best = (dict(curr), num_rooms)
-
+    print(best)
     return best
 
 def reorder_rooms(rooms):
@@ -132,6 +133,9 @@ if __name__ == '__main__':
         assert is_valid_solution(D, G, s, k)
 
         h = calculate_happiness(D, G)
+
+        print(h, h_o)
+        
         if h > h_o:
             print("improvement on {} ({} vs {}), overwriting...".format(input_path, D_o, D))
         write_output_file(D, output_path)

@@ -99,7 +99,8 @@ def anneal_solve_20(G, s):
 
     # print(best)
 
-    T = 100
+    T = 100000
+
     G_copy = G.copy()
     for e in list(G_copy.edges.data()):
         if e[2]['stress'] > s / 2:
@@ -108,6 +109,7 @@ def anneal_solve_20(G, s):
     # print("beginning annealing...")
     # print()
     # start = timeit.default_timer()
+
     for i in range(ITERATIONS):
         # print(T)
         # if i % 100 == 0:
