@@ -12,7 +12,7 @@ from utils import *
 from parse import *
 from os.path import *
 
-ITERATIONS = 10 ** 5
+ITERATIONS = 10 ** 4
 
 def anneal_solve_20(G, s):
     curr = {}
@@ -99,7 +99,7 @@ def anneal_solve_20(G, s):
 
     # print(best)
 
-    T = 100000
+    T = 10000
 
     G_copy = G.copy()
     for e in list(G_copy.edges.data()):
@@ -152,7 +152,7 @@ def anneal_solve_20(G, s):
         else:
             curr[st1] = st1_num
 
-        if i % 100 == 0:
+        if i % 10 == 0:
             T *= .99
 
         rooms = reorder_rooms(rooms)
@@ -163,7 +163,7 @@ def anneal_solve_20(G, s):
             if happ > best_happiness:
                 best_happiness = happ
                 best = (dict(curr), num_rooms)
-                
+
     # print(best)
     return best
 
@@ -207,6 +207,8 @@ if __name__ == '__main__':
 
         h = calculate_happiness(D, G)
 
+        print(h, h_o)
+        
         if h > h_o:
             print("improvement on {} ({} vs {}), overwriting...".format(input_path, D_o, D))
             write_output_file(D, output_path)
